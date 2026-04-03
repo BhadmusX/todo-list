@@ -8,16 +8,19 @@ class project{
         this.todos.push(todo);
         console.log(`${todo.title} was added to ${this.name}`)
     }
-    removetodo(title){
-        this.todos = this.todos.filter((todo)=> todo.title !== title);
-        console.log(`${title} was removed from ${this.name}`)
+    removetodo(id){
+        const findtodo = this.todos.findIndex(todo => todo.id === id);
+        if (findtodo === -1) return;
+        if (findtodo === "default") return;
+        this.todos.splice(findtodo, 1);
+        console.log(`${id} was removed from ${this.name}`)
     }
     setcomplete(title){
         const foundtodo = this.todos.find(todo => todo.title === title);
         foundtodo.complete = !foundtodo.complete;
     }
-    changetodopriority(title, priority){
-       const foundtodo = this.todos.find(todo => todo.title === title); 
+    changetodopriority(id, priority){
+       const foundtodo = this.todos.find(todo => todo.id === id); 
        foundtodo.priority = priority;
     }
 };

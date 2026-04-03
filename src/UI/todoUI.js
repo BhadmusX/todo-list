@@ -12,6 +12,7 @@ class todoUi{
     formtodo(projectName, title, description, duedate, priority){
          this.app.createtodo(projectName, title, description, duedate, priority);
           console.log(this.rendertodos(projectName));
+          this.app.saveproject();
     };
     tododetails( projectName){
         return this.rendertodos(projectName).map(todo => {
@@ -20,9 +21,11 @@ class todoUi{
     }
     deletetodo(projectName, todoid){
         this.app.deletetodo(projectName, todoid);
+        this.app.saveproject();
     }
     completetodo(projectName, title){
         this.app.setTodoComplete(projectName, title);
+        this.app.saveproject();
     }
 }
 export {todoUi};

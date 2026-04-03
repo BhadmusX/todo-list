@@ -10,7 +10,9 @@ class projectUi {
         });
     }
     projectform(name){
-       return this.app.createproject(name);
+        this.app.createproject(name);
+        this.app.saveproject();
+       
     };
 }
 export {projectUi};
