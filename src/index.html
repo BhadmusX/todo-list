@@ -3,11 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo X</title>
 </head>
-<body>
-    <section class="left-sidebar"></section>
-    <header></header>
-    <section class="main"></section>
+<body class="body">
+    <section class="left-sidebar">
+        <div class="left-head">
+            <h1>PROJECTS</h1>
+        </div>
+        <div class="project-cont">
+            <ul class="project-list">
+
+            </ul>
+        </div>
+        <div class="projectbtn-cont">
+            <button class="project-btn" id="openpromodal">
+                + new project
+            </button>
+        </div>
+    </section>
+    <section class="main">
+        <header>
+            <div class="current-project"></div>
+            <div>
+            <button class="add-btn" id="opentodo-modal">+ add todo</button>
+            </div>
+        </header>
+        <div class="todos">
+            <ul class="todo-list">
+                
+            </ul>
+        </div>
+    </section>
+
+    <div id="modal-container" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>New project</h2>
+            <input type="text" placeholder="e.g Work" id="project-input">
+            <button id="closemodal">Submit</button>
+        </div>
+    </div>
+
+    <div id="todomodal-container" class="todo-overlay hidden">
+        <div class="todo-content">
+            <h2>New Todo</h2>
+            <input type="text" name="" id="title" placeholder="Title">
+            <input type="text" name="" id="desc" placeholder="Description">
+            <input type="date" name="" id="duedate" placeholder="Due date">
+            
+            <select name="priorities" id="priority-dropdown">
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <button id="closetodomodal">Submit</button>
+
+        </div>
+    </div>
+
 </body>
 </html>

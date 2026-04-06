@@ -15,8 +15,12 @@ class project{
         this.todos.splice(findtodo, 1);
         console.log(`${id} was removed from ${this.name}`)
     }
-    setcomplete(title){
-        const foundtodo = this.todos.find(todo => todo.title === title);
+    setcomplete(id){
+        const foundtodo = this.todos.find(todo => todo.id === id);
+        if (!foundtodo) {
+            console.error('Todo not found with id:', id, 'in project:', this.name);
+            return;
+        }
         foundtodo.complete = !foundtodo.complete;
     }
     changetodopriority(id, priority){

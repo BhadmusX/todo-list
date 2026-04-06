@@ -1,5 +1,7 @@
 import { app } from "../logic/app.js";
+import { todo } from "../logic/factory.js";
 import { project } from "../logic/project.js";
+import { projectUi } from "./projectUI.js";
 class todoUi{
     constructor (app){
         this.app = app;
@@ -9,9 +11,58 @@ class todoUi{
             return todo
         });
     }
+ rendermaincontent(projectname){
+        const todolist = document.querySelector(".todo-list");
+        todolist.innerHTML = "";
+        this.rendertodos(projectname).forEach(t => {
+            const todoitem = document.createElement("li");
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            const todoinf = document.createElement("div");
+            const todotitle = document.createElement("p");
+            const todoinfo = document.createElement("div");
+            const duedate  = document.createElement("p");
+            const priority = document.createElement("p");
+
+
+            todolist.appendChild(todoitem);
+            todoitem.appendChild(checkbox);
+            todoitem.appendChild(todoinf);
+            todoinf.appendChild(todotitle);
+            todoinf.appendChild(todoinfo);
+            todoinfo.appendChild(duedate);
+            todoinfo.appendChild(priority);
+
+            todoitem.classList.add("todo-item");
+            checkbox.classList.add("checkbox");
+            todoinf.classList.add("todo-inf");
+            todotitle.classList.add("todo-title");
+            todoinfo.classList.add("todo-info");
+            duedate.classList.add("todo-date");
+            priority.classList.add("todo-priority");
+
+            if(t.priority === "high"){
+                priority.classList.add("high")
+            }else if (t.priority === "medium"){
+                priority.classList.add("medium");
+            }else{
+                priority.classList.add("low");
+            }
+
+            todotitle.textContent = t.title;
+            duedate.textContent = t.duedate;
+            priority.textContent = t.priority;
+            checkbox.addEventListener("change", () => {
+                const id = t.id;
+                this.app.setTodoComplete(projectname, id);
+            });
+
+            
+        });
+    }
+    
     formtodo(projectName, title, description, duedate, priority){
          this.app.createtodo(projectName, title, description, duedate, priority);
-          console.log(this.rendertodos(projectName));
           this.app.saveproject();
     };
     tododetails( projectName){
@@ -23,8 +74,8 @@ class todoUi{
         this.app.deletetodo(projectName, todoid);
         this.app.saveproject();
     }
-    completetodo(projectName, title){
-        this.app.setTodoComplete(projectName, title);
+    completetodo(projectName, id){
+        this.app.setTodoComplete(projectName, id);
         this.app.saveproject();
     }
 }

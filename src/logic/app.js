@@ -51,6 +51,9 @@ class app {
         const findproject = this.projects.find(project => project.name === projectname);
         return findproject;
     };
+    findprojectid(projectname){
+       return  this.findproject(projectname).id;
+    }
     getprojects(){
         return this.projects
     }
@@ -60,16 +63,19 @@ class app {
         finddefault.id = "default";
         this.saveproject();
     }
-    setTodoComplete(projectname, todotitle){
+    setTodoComplete(projectname, id){
         const foundProject = this.projects.find(project => project.name === projectname);
-        foundProject.setcomplete(todotitle); 
+        foundProject.setcomplete(id); 
         this.saveproject();
     }
-    changepriority(projectname, todotitle, priority){
+    changepriority(projectname, todoid, priority){
         const foundProject = this.projects.find(project => project.name === projectname);
-        foundProject.changetodopriority(todotitle, priority);
+        foundProject.changetodopriority(todoid, priority);
         this.saveproject();
     }
+    gettodos(projectname){
+        return this.findproject(projectname).todos;
+    };
     saveproject(){
     const projects =  this.projects;
     localStorage.setItem("projects", JSON.stringify(projects));
