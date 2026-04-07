@@ -3,7 +3,7 @@ import { todo } from "../logic/factory.js";
 import { project } from "../logic/project.js";
 import { projectUi } from "./projectUI.js";
 class todoUi{
-    constructor (app, projectUi){
+    constructor (app){
         this.app = app;
     }
     rendertodos(name){
@@ -80,6 +80,7 @@ class todoUi{
                 if(todoitem.dataset.id === id){
                     todoitem.remove();
                 }
+                this.projectUi.rendercurrentproject(projectname);
             });
 
 

@@ -21,7 +21,7 @@ class projectUi {
             const delpro = document.createElement("button");
             delpro.textContent = "x";
             projectdiv.textContent = name;
-            projectdiv.classList.add(`${name}`);
+            projectdiv.classList.add(name.replace(/\s+/g, "-"));
             projectdiv.classList.add("projectdiv");
             prodiv.classList.add("prodiv");
 
