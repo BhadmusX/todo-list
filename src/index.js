@@ -56,6 +56,7 @@ const currentpro = document.querySelector(".current-project");
        cont.saveproject();
        console.log(projectname);
        rendertodo.rendermaincontent(projectname);
+       render.rendercurrentproject(projectname);
        render.renderSidebar();
     })
     window.addEventListener("click", (e)=> {

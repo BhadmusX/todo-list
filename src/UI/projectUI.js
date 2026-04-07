@@ -11,7 +11,6 @@ class projectUi {
     }
     renderSidebar(){
         const projectcont = document.querySelector(".project-cont");
-        const currentpro = document.querySelector(".current-project");
       const array = this.app.getprojects().map(project => {
             return project.name;
         });
@@ -28,15 +27,7 @@ class projectUi {
 
 
             projectdiv.addEventListener("click", () => {
-                this.currentpro = projectdiv.textContent;
-                currentpro.innerHTML = "";
-                const currentname = document.createElement("h1");
-                const tasks = document.createElement("p");
-                const done = this.app.gettodos(name).filter(t => t.complete).length;
-                tasks.textContent = `${this.app.gettodos(name).length}tasks . ${done}Completed`
-                currentname.textContent = name;
-                currentpro.appendChild(currentname);
-                currentpro.appendChild(tasks);
+               this.rendercurrentproject(name);
                 this.todoui.rendermaincontent(name);
             });
 
@@ -53,6 +44,18 @@ class projectUi {
         });
         
     }
+    rendercurrentproject(name){
+    const currentpro = document.querySelector(".current-project");
+    currentpro.innerHTML = "";
+    const currentname = document.createElement("h1");
+    const tasks = document.createElement("p");
+    const done = this.app.gettodos(name).filter(t => t.complete).length;
+    tasks.textContent = `${this.app.gettodos(name).length} tasks . ${done} completed`;
+    this.currentpro = name;
+    currentname.textContent = name;
+    currentpro.appendChild(currentname);
+    currentpro.appendChild(tasks);
+}
     projectform(name){
 
         this.app.createproject(name);
