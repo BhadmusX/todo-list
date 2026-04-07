@@ -23,6 +23,8 @@ class todoUi{
             const todoinfo = document.createElement("div");
             const duedate  = document.createElement("p");
             const priority = document.createElement("p");
+            const deltodo = document.createElement("button");
+            deltodo.textContent = "x";
 
 
             todolist.appendChild(todoitem);
@@ -32,6 +34,7 @@ class todoUi{
             todoinf.appendChild(todoinfo);
             todoinfo.appendChild(duedate);
             todoinfo.appendChild(priority);
+            todoinfo.appendChild(deltodo);
 
             todoitem.classList.add("todo-item");
             checkbox.classList.add("checkbox");
@@ -40,6 +43,7 @@ class todoUi{
             todoinfo.classList.add("todo-info");
             duedate.classList.add("todo-date");
             priority.classList.add("todo-priority");
+            deltodo.classList.add("deltodo");
 
             if(t.priority === "high"){
                 priority.classList.add("high")
@@ -49,6 +53,7 @@ class todoUi{
                 priority.classList.add("low");
             }
 
+            todoitem.dataset.id = t.id;
             todotitle.textContent = t.title;
             duedate.textContent = t.duedate;
             priority.textContent = t.priority;
@@ -56,8 +61,15 @@ class todoUi{
                 const id = t.id;
                 this.app.setTodoComplete(projectname, id);
             });
+            deltodo.addEventListener("click", () => {
+                const id = t.id;
+                this.app.deletetodo(projectname, id);
+                if(todoitem.dataset.id === id){
+                    todoitem.remove();
+                }
+            });
 
-            
+
         });
     }
     
