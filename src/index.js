@@ -55,7 +55,8 @@ const currentpro = document.querySelector(".current-project");
        document.querySelector("#desc").value = "";
        document.querySelector("#duedate").value = "";
        cont.saveproject();
-       rendertodo.rendermaincontent(projectname);
+       const todos = cont.gettodos(projectname);
+       rendertodo.rendermaincontent(projectname, todos);
        render.rendercurrentproject(projectname);
        render.renderSidebar();
     })
@@ -64,7 +65,27 @@ const currentpro = document.querySelector(".current-project");
             todomodal.classList.add("hidden");
         }
     });
+     const filter = document.querySelector("#filter-dropdown");
+    filter.addEventListener("click", () => {
+        const name = render.getcurrentpro();
+        if(filter.value === "complete"){
+    const completed = cont.gettodos(name).filter(t => t.complete === true);
+    rendertodo.rendermaincontent(name, completed);
+   }else if (filter.value === "high"){
+    const high = cont.gettodos(name).filter(t => t.priority === "high");
+    rendertodo.rendermaincontent(name, high);
+   }else if(filter.value === "medium"){
+    const medium = cont.gettodos(name).filter(t => t.priority === "medium");
+    rendertodo.rendermaincontent(name, medium);
+   }else if (filter.value === "low"){
+    const low = cont.gettodos(name).filter(t => t.priority === "low"
+    )
+        rendertodo.rendermaincontent(name, low);
+   }
+   filter.selectedIndex = 0;
+    });
     rendertodo.projectUi = render;
 render.renderSidebar();
-rendertodo.rendermaincontent("Default");
+const todos = cont.gettodos("Default")
+rendertodo.rendermaincontent("Default", todos);
 render.rendercurrentproject("Default");

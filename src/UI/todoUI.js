@@ -11,10 +11,18 @@ class todoUi{
             return todo
         });
     }
- rendermaincontent(projectname){
+ rendermaincontent(projectname, todos){
         const todolist = document.querySelector(".todo-list");
         todolist.innerHTML = "";
-        this.rendertodos(projectname).forEach(t => {
+        if (todos.length === 0) {
+        const message = document.createElement("p");
+        message.textContent = "No tasks found for this project. Enjoy your free time!";
+        message.classList.add("empty-state-message");
+        todolist.appendChild(message);
+        return; 
+    }
+
+        todos.forEach(t => {
             const todoitem = document.createElement("li");
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";

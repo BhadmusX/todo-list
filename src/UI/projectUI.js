@@ -28,7 +28,8 @@ class projectUi {
 
             projectdiv.addEventListener("click", () => {
                this.rendercurrentproject(name);
-                this.todoui.rendermaincontent(name);
+               const todos = this.app.gettodos(name);
+                this.todoui.rendermaincontent(name, todos);
             });
 
             projectcont.appendChild(prodiv);
@@ -49,6 +50,8 @@ class projectUi {
     currentpro.innerHTML = "";
     const currentname = document.createElement("h1");
     const tasks = document.createElement("p");
+    currentname.classList.add("currentname");
+    tasks.classList.add("tasks");
     const done = this.app.gettodos(name).filter(t => t.complete).length;
     tasks.textContent = `${this.app.gettodos(name).length} tasks . ${done} completed`;
     this.currentpro = name;

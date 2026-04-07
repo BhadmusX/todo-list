@@ -83,6 +83,16 @@ cursor: pointer;
       padding: 0px 20px;
       font-family: sans-serif;
 }
+.currentname{
+    font-size: clamp(1.4rem, 4vw, 2rem);
+}
+.filter{
+    width: 500px;
+}
+select{
+    padding: 5px 10px;
+    width: 100%;
+}
 .add-btn{
      border: 0.3px solid rgb(93, 93, 93);
     padding: 10px 30px;
@@ -98,6 +108,10 @@ li{
     flex-direction: column;
     gap: 10px;
     padding: 0 10px;
+}
+.empty-state-message{
+    font-family: sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
 }
 .todo-item{
     display: flex;
