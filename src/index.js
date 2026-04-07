@@ -64,6 +64,5 @@ const currentpro = document.querySelector(".current-project");
             todomodal.classList.add("hidden");
         }
     });
-
-    
+    rendertodo.projectUi = render;
 render.renderSidebar();
