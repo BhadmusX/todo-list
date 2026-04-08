@@ -68,7 +68,11 @@ const currentpro = document.querySelector(".current-project");
      const filter = document.querySelector("#filter-dropdown");
     filter.addEventListener("click", () => {
         const name = render.getcurrentpro();
-        if(filter.value === "complete"){
+        if(filter.value === "all"){
+            const all = cont.gettodos(name)
+            rendertodo.rendermaincontent(name, all);
+        }
+        else if(filter.value === "complete"){
     const completed = cont.gettodos(name).filter(t => t.complete === true);
     rendertodo.rendermaincontent(name, completed);
    }else if (filter.value === "high"){
