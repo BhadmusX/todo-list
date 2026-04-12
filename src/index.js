@@ -95,7 +95,12 @@ hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     sidebar.classList.toggle('open');
 });
-
+document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove('open');
+        hamburger.classList.remove('open');
+    }
+});
     rendertodo.projectUi = render;
 render.renderSidebar();
 const todos = cont.gettodos("Default")
