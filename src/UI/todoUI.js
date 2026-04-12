@@ -35,6 +35,10 @@ class todoUi{
             const priority = document.createElement("p");
             const deltodo = document.createElement("button");
             deltodo.textContent = "x";
+            if(t.complete){
+    todotitle.classList.add("disabletitle");
+    duedate.classList.add("disableduedate");
+}
 
             todolist.appendChild(todoitem);
             todoitem.appendChild(checkbox);
@@ -73,8 +77,10 @@ class todoUi{
             checkbox.addEventListener("change", () => {
                 const id = t.id;
                 this.app.setTodoComplete(projectname, id);
+                this.app.saveproject();
                 this.projectUi.rendercurrentproject(projectname);
-                if(t.complete){
+                const updatedTodo = this.app.gettodos(projectname).find(todo => todo.id === id);
+                if(updatedTodo.complete){
                     todotitle.classList.add("disabletitle");
                     duedate.classList.add("disableduedate");
                 }else{
@@ -82,6 +88,7 @@ class todoUi{
                     duedate.classList.remove("disableduedate");
                 }
             });
+            checkbox.checked = t.complete;
             deltodo.addEventListener("click", () => {
                 const id = t.id;
                 this.app.deletetodo(projectname, id);

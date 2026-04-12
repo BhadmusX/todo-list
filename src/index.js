@@ -88,6 +88,14 @@ const currentpro = document.querySelector(".current-project");
    }
    filter.selectedIndex = 0;
     });
+    const hamburger = document.getElementById('hamburger');
+const sidebar = document.querySelector('.left-sidebar');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    sidebar.classList.toggle('open');
+});
+
     rendertodo.projectUi = render;
 render.renderSidebar();
 const todos = cont.gettodos("Default")
