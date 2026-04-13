@@ -1,4 +1,10 @@
-
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('./fonts/bebasneue-regular-webfont.woff2') format('woff2'),
+         url('./fonts/bebasneue-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 body{
     font-family: sans-serif;
     display: grid;
@@ -43,11 +49,19 @@ section{
 }
 .left-sidebar{
     display: grid;
-    grid-template-rows: 0.3fr 3fr 0.3fr;
+    grid-template-rows: 1fr 0.3fr 3fr 0.3fr;
     border-right: 0.5px solid rgb(211, 211, 211);
     background-color: #1a1a1a;
     padding: 10px;
     height: 100%;
+}
+.app-name{
+    font-family: 'bebas_neueregular';
+     font-size: clamp(2.2rem, 4vw, 2.8rem);
+     color: white;
+    font-weight: 600;
+    font-style: italic;
+
 }
 .left-head{
     display: flex;
@@ -292,7 +306,7 @@ cursor: pointer;
     .left-sidebar { display: none; }
     .left-sidebar.open { 
           display: grid;
-    grid-template-rows: 0.3fr 3fr 0.3fr;
+    grid-template-rows: 1fr 0.3fr 3fr 0.3fr;
     border-right: 0.5px solid rgb(211, 211, 211);
     background-color: #1a1a1a;
      z-index: 100;
