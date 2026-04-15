@@ -1,7 +1,9 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './style.css';
 import {app} from "./logic/app.js";
 import { todoUi } from "./UI/todoUI.js";
 import { projectUi } from "./UI/projectUI.js";
+import { todo } from './logic/factory.js';
 const cont = new app();
 const rendertodo = new todoUi(cont);
 const render = new projectUi(cont, rendertodo);
@@ -9,6 +11,8 @@ const porjectbtn = document.querySelector(".project-btn");
 const addtodo = document.querySelector(".add-btn");
 const todocont = document.querySelector(".todos");
 const currentpro = document.querySelector(".current-project");
+
+//console.log(cont.getchecklist("Default", "93db77f3-5518-458d-a280-635d774ba98c"));
 
     const openbtn = document.querySelector("#openpromodal");
     const closebtn = document.querySelector("#closemodal");
@@ -45,21 +49,41 @@ const currentpro = document.querySelector(".current-project");
         const desc = document.querySelector("#desc").value.trim();
         const duedate = document.querySelector("#duedate").value;
         const priority = document.querySelector("#priority-dropdown").value;
-        if(!title || !desc || !duedate || !priority) return;
+        const notes = document.querySelector("#notes").value.trim();
+        if(!title || !desc || !duedate || !priority || !notes) return;
        const selectedprior = priority; 
        const projectname = render.getcurrentpro();
        if (!projectname) return;
-       rendertodo.formtodo(projectname, title, desc, duedate, selectedprior);
+       const newtodo =  rendertodo.formtodo(projectname, title, desc, duedate, selectedprior, notes);
+       checklistitems.forEach(item => {
+       cont.addchecklist(projectname, newtodo.id, item)
+});
+checklistitems.length = 0;
+
        todomodal.classList.add("hidden");
        document.querySelector("#title").value = "";
        document.querySelector("#desc").value = "";
        document.querySelector("#duedate").value = "";
+       document.querySelector("#notes").value = "";
        cont.saveproject();
        const todos = cont.gettodos(projectname);
        rendertodo.rendermaincontent(projectname, todos);
        render.rendercurrentproject(projectname);
        render.renderSidebar();
-    })
+    });
+
+const checklistitems = [];
+
+const addchecklistbtn = document.querySelector(".add-checklist");
+addchecklistbtn.addEventListener("click", () => {
+    const checklistinput = document.querySelector("#checklist-input");
+    const item = checklistinput.value.trim();
+    if(!item)return;
+    checklistitems.push(item);
+    checklistinput.value = "";
+});
+
+
     window.addEventListener("click", (e)=> {
         if(e.target === todomodal){
             todomodal.classList.add("hidden");
@@ -101,6 +125,7 @@ document.addEventListener('click', (e) => {
         hamburger.classList.remove('open');
     }
 });
+
     rendertodo.projectUi = render;
 render.renderSidebar();
 const todos = cont.gettodos("Default")

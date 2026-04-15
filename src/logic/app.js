@@ -12,9 +12,11 @@ class app {
     const newProject = new project(p.name);
     newProject.id = p.id;
     newProject.todos = p.todos.map(t => {
-        const newTodo = new todo(t.title, t.description, t.duedate, t.priority);
+        const newTodo = new todo(t.title, t.description, t.duedate, t.priority, t.notes);
         newTodo.id = t.id;
         newTodo.complete = t.complete;
+        newTodo.notes = t.notes;
+        newTodo.checklist = t.checklist || [];
         return newTodo;
     });
     return newProject;
@@ -28,10 +30,12 @@ class app {
         this.saveproject();
         return newproject;
     }
-    createtodo(projectName, title, description, duedate, priority){
+    createtodo(projectName, title, description, duedate, priority, notes){
     const foundProject = this.projects.find(project => project.name === projectName);
-    foundProject.addtodo(new todo(title, description, duedate, priority));
+    const newtodo = new todo(title, description, duedate, priority, notes);
+    foundProject.addtodo(newtodo);
     this.saveproject();
+    return newtodo;
 }
     deletetodo(projectName, todoid){
         this.projects;
@@ -76,6 +80,25 @@ class app {
     gettodos(projectname){
         return this.findproject(projectname).todos;
     };
+    getchecklist(projectname, id){
+        const foundProject = this.projects.find(project => project.name === projectname);
+        return foundProject.getchecklist(id);
+    }
+    addchecklist(projectname, id, text){
+     const foundProject = this.projects.find(project => project.name === projectname);
+     foundProject.addchecklist(id, text); 
+     this.saveproject();  
+    }
+    updatechecklist(projectname, id, index, text){
+        const foundProject = this.projects.find(project => project.name === projectname);
+        foundProject.updatechecklist(id, index, text);
+        this.saveproject();
+    }
+    checklistcomplete(projectname, id, index){
+        const foundProject = this.projects.find(project => project.name === projectname);
+        foundProject.setchecklistcomplete(id, index);
+        this.saveproject();
+    }
     saveproject(){
     const projects =  this.projects;
     localStorage.setItem("projects", JSON.stringify(projects));

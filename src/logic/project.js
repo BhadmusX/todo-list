@@ -27,5 +27,25 @@ class project{
        const foundtodo = this.todos.find(todo => todo.id === id); 
        foundtodo.priority = priority;
     }
+    getchecklist(id){
+      const foundtodo = this.todos.find(todo => todo.id === id);
+      return foundtodo.checklist;  
+    }
+    addchecklist(id, text){
+      const foundtodo = this.todos.find(todo => todo.id === id);  
+    foundtodo.checklist.push({
+        text: text,
+        complete: false
+    });
+}
+     updatechecklisttext(id, index, text){
+         const foundtodo = this.todos.find(todo => todo.id === id);
+        foundtodo.checklist[index].text = text;
+    }
+    setchecklistcomplete(id, index){
+         const foundtodo = this.todos.find(todo => todo.id === id);
+        const foundchecklist = foundtodo.checklist[index];
+        foundchecklist.complete = !foundchecklist.complete;
+    }
 };
 export {project};
