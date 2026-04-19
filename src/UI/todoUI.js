@@ -103,6 +103,8 @@ class todoUi{
 
             deltodo.innerHTML = `<i class="fa-solid fa-trash"></i>`;
             edittodo.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+            edittodo.dataset.id = t.id;
+            edittodo.dataset.project = projectname;
             extendtodobtn.innerHTML = `<i class="fa-solid fa-chevron-down"></i>`;
             desclabel.textContent = "Description:";
             checklistlabel.textContent = "Checklist:";
@@ -138,14 +140,112 @@ class todoUi{
                 checkboxcontent.appendChild(checkbox);
                 checkboxcontent.appendChild(checkboxtext);
                 checklistcont.appendChild(checkboxcontent);
-                checkbox.addEventListener("change", (e) => {
-                    e.target.this.app.checklistcomplete(projectname, id, index);
-                    console.log("checkbox has been toggled");
+                checkbox.addEventListener("change", () => {
+                this.app.checklistcomplete(projectname, id, index);
+                    const allChecked = Array.from(checklistcont.querySelectorAll('input[type="checkbox"]')).every(cb => cb.checked);
+                    if(allChecked){
+                         todotitle.classList.add("disabletitle");
+                    duedate.classList.add("disableduedate");
+                    }else{
+                         todotitle.classList.remove("disabletitle");
+                    duedate.classList.remove("disableduedate");
+                    }
                 })
 
             });
 
-            
+            edittodo.addEventListener("click", () => {
+                extendedtodo.classList.toggle("active");
+    const id = edittodo.dataset.id;
+    const project = edittodo.dataset.project;
+    const todo = this.app.gettodos(project).find(t => t.id === id);
+    extendedtodo.innerHTML = `
+    <div class = "edit-section">
+        <label>Title
+        <input type="text" id="edit-title" value="${todo.title}">
+        </label>
+        <label>Description
+        <textarea id="edit-desc">${todo.description}</textarea>
+        </label>
+        <label>Due Date
+        <input type="date" id="edit-date" value="${todo.duedate}">
+        </label>
+        <label>Priority
+        <select id="edit-priority">
+            <option value="high" ${todo.priority === "high" ? "selected" : ""}>High</option>
+            <option value="medium" ${todo.priority === "medium" ? "selected" : ""}>Medium</option>
+            <option value="low" ${todo.priority === "low" ? "selected" : ""}>Low</option>
+        </select></label>
+        <label>Notes 
+        <input type="text" id="edit-notes" value="${todo.notes}"></label>
+        <label>Checklist
+        <div id="edit-checklist-cont"></div>
+        <input type="text" id="new-checklist-input" placeholder="Add checklist item">
+        <button id="add-new-checklist">+ add item</button>
+        </label>
+        <div>
+        <button id="save-edit">Save</button>
+        <button id = "cancel-edit">Cancel</button>
+        </div>
+
+        </div>
+    `;
+
+    const checklistcont = extendedtodo.querySelector("#edit-checklist-cont");
+    const checklistarray = this.app.getchecklist(project, id);
+
+    if(checklistarray.length > 0){
+        checklistarray.forEach((check, index) => {
+            const div = document.createElement("div");
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = check.text;
+            input.dataset.index = index;
+            const delbtn = document.createElement("button");
+            delbtn.textContent = "X";
+            delbtn.addEventListener("click", () => {
+                div.remove();
+            });
+            div.appendChild(input);
+            div.appendChild(delbtn);
+            checklistcont.appendChild(div);
+        });
+    }
+
+    document.getElementById("add-new-checklist").addEventListener("click", () => {
+        const newitem = document.getElementById("new-checklist-input").value.trim();
+        if(!newitem) return;
+        const div = document.createElement("div");
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = newitem;
+        const delbtn = document.createElement("button");
+        delbtn.textContent = "X";
+        delbtn.addEventListener("click", () => div.remove());
+        div.appendChild(input);
+        div.appendChild(delbtn);
+        checklistcont.appendChild(div);
+        document.getElementById("new-checklist-input").value = "";
+    });
+
+    document.getElementById("save-edit").addEventListener("click", () => {
+        const newtitle = document.getElementById("edit-title").value.trim();
+        const newdesc = document.getElementById("edit-desc").value.trim();
+        const newdate = document.getElementById("edit-date").value;
+        const newpriority = document.getElementById("edit-priority").value;
+        const newnotes = document.getElementById("edit-notes").value.trim();
+
+        this.app.edittodo(project, id, newtitle, newdesc, newdate, newpriority, newnotes);
+
+        const newchecklist = Array.from(checklistcont.querySelectorAll("input")).map(input => input.value.trim()).filter(Boolean);
+        this.app.updatechecklist(project, id, newchecklist);
+        this.app.saveproject();
+        this.rendermaincontent(project, this.app.gettodos(project));
+    });
+    document.getElementById("cancel-edit").addEventListener("click", () => {
+    this.rendermaincontent(project, this.app.gettodos(project));
+});
+});
 
             checkbox.addEventListener("change", () => {
                 const id = t.id;

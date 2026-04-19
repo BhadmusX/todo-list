@@ -3,16 +3,9 @@ import './style.css';
 import {app} from "./logic/app.js";
 import { todoUi } from "./UI/todoUI.js";
 import { projectUi } from "./UI/projectUI.js";
-import { todo } from './logic/factory.js';
 const cont = new app();
 const rendertodo = new todoUi(cont);
 const render = new projectUi(cont, rendertodo);
-const porjectbtn = document.querySelector(".project-btn");
-const addtodo = document.querySelector(".add-btn");
-const todocont = document.querySelector(".todos");
-const currentpro = document.querySelector(".current-project");
-
-//console.log(cont.getchecklist("Default", "93db77f3-5518-458d-a280-635d774ba98c"));
 
     const openbtn = document.querySelector("#openpromodal");
     const closebtn = document.querySelector("#closemodal");

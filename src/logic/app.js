@@ -4,10 +4,8 @@ class app {
     constructor () {
         this.projects = [];
         if (!localStorage.getItem("projects")){
-    console.log("localStorage is empty, loading default");
     this.getdefaultproject();
 } else {
-    console.log("localStorage has data, loading from storage");
     this.projects = this.load().map(p => {
     const newProject = new project(p.name);
     newProject.id = p.id;
@@ -26,7 +24,6 @@ class app {
         createproject(name){
         const newproject = new project(name);
         this.projects.push(newproject);
-        console.log(`${newproject.name} has been added to projects`);
         this.saveproject();
         return newproject;
     }
@@ -46,9 +43,8 @@ class app {
     deleteproject(name, id){
         const foundindex = this.projects.findIndex(project => project.id === id);
         if (foundindex === -1) return;
-        if( this.projects[foundindex].id === "default") return console.log("can't delete default");
+        if( this.projects[foundindex].id === "default") return 
         this.projects.splice(foundindex, 1);
-        console.log(`${name} was removed from project`);
         this.saveproject();
     }
     findproject(projectname){
@@ -89,16 +85,27 @@ class app {
      foundProject.addchecklist(id, text); 
      this.saveproject();  
     }
-    updatechecklist(projectname, id, index, text){
-        const foundProject = this.projects.find(project => project.name === projectname);
-        foundProject.updatechecklist(id, index, text);
-        this.saveproject();
-    }
+   updatechecklist(projectname, id, newchecklist){
+    const foundProject = this.projects.find(project => project.name === projectname);
+    const foundtodo = foundProject.todos.find(todo => todo.id === id);
+    foundtodo.checklist = newchecklist.map(text => ({ text, complete: false }));
+    this.saveproject();
+}
     checklistcomplete(projectname, id, index){
         const foundProject = this.projects.find(project => project.name === projectname);
         foundProject.setchecklistcomplete(id, index);
         this.saveproject();
     }
+    edittodo(projectname, id, title, description, duedate, priority, notes){
+    const foundProject = this.projects.find(project => project.name === projectname);
+    const foundtodo = foundProject.todos.find(todo => todo.id === id);
+    foundtodo.title = title;
+    foundtodo.description = description;
+    foundtodo.duedate = duedate;
+    foundtodo.priority = priority;
+    foundtodo.notes = notes;
+    this.saveproject();
+}
     saveproject(){
     const projects =  this.projects;
     localStorage.setItem("projects", JSON.stringify(projects));
