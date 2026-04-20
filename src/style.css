@@ -121,7 +121,6 @@ cursor: pointer;
     height: 40px;
     width: 150px;
 }
-.project-i
 .project-btn:hover{
     background-color: rgb(52, 52, 52);
 }
@@ -302,7 +301,7 @@ cursor: pointer;
 }
 .deltodo:hover, .edittodo:hover, .extendtodobtn:hover{
 transform: scale(1.1);
-};
+}
 .high{
    background-color: palevioletred;
    color: rgb(106, 41, 41); 
