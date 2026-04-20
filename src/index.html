@@ -1,87 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo X</title>
-</head>
-<body class="body">
+  </head>
+  <body class="body">
     <section class="left-sidebar">
-        <div class="app-name">Todo X</div>
-        <div class="left-head">
-            <h1>PROJECTS</h1>
-        </div>
-        <div class="project-cont">
-            <ul class="project-list">
-
-            </ul>
-        </div>
-        <div class="projectbtn-cont">
-            <button class="project-btn" id="openpromodal">
-                + new project
-            </button>
-        </div>
+      <div class="app-name">Todo X</div>
+      <div class="left-head">
+        <h1>PROJECTS</h1>
+      </div>
+      <div class="project-cont">
+        <ul class="project-list"></ul>
+      </div>
+      <div class="projectbtn-cont">
+        <button class="project-btn" id="openpromodal">+ new project</button>
+      </div>
     </section>
     <section class="main">
-        <header>
-            
-            <div class="filter">
-                <select name="" id="filter-dropdown">
-                    <option disabled selected>Select priority</option>
-                    <option value="all">All</option>
-                    <option value="complete">Complete</option>
-                    <option value="high">priority(High)</option>
-                    <option value="medium">Priority(Medium)</option>
-                    <option value="low">Priority(Low)</option>
-                </select>
-            </div>
-            <div>
-                <button class="hamburger" id="hamburger">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
-            </div>
-        </header>
-        <div class="todos">
-            <div class="todo-header">
-            <div class="current-project"></div>
-             <button class="add-btn" id="opentodo-modal">+ add todo</button>
-             </div>
-            <ul class="todo-list">
-
-            </ul>
+      <header>
+        <div class="filter">
+          <select name="" id="filter-dropdown">
+            <option disabled selected>Select priority</option>
+            <option value="all">All</option>
+            <option value="complete">Complete</option>
+            <option value="high">priority(High)</option>
+            <option value="medium">Priority(Medium)</option>
+            <option value="low">Priority(Low)</option>
+          </select>
         </div>
+        <div>
+          <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </header>
+      <div class="todos">
+        <div class="todo-header">
+          <div class="current-project"></div>
+          <button class="add-btn" id="opentodo-modal">+ add todo</button>
+        </div>
+        <ul class="todo-list"></ul>
+      </div>
     </section>
 
     <div id="modal-container" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>New project</h2>
-            <input type="text" placeholder="e.g Work" id="project-input">
-            <button id="closemodal">Submit</button>
-        </div>
+      <div class="modal-content">
+        <h2>New project</h2>
+        <input type="text" placeholder="e.g Work" id="project-input" />
+        <button id="closemodal">Submit</button>
+      </div>
     </div>
 
     <div id="todomodal-container" class="todo-overlay hidden">
-        <div class="todo-content">
-            <h2>New Todo</h2>
-            <input type="text" name="" id="title" placeholder="Title">
-            <textarea name="desc" id="desc" placeholder="Description"></textarea>
-            <input type="date" name="" id="duedate" placeholder="Due date">
-            <select name="priorities" id="priority-dropdown">
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-            </select>
-            <input type="text" name="" id="notes" placeholder="notes">
-            <div class="checklist-cont">
-            <input type="text" placeholder="Add checklist item" id="checklist-input">
-            <button class="add-checklist">Add</button>
-            </div>
-            <button id="closetodomodal">Submit</button>
-
+      <div class="todo-content">
+        <h2>New Todo</h2>
+        <input type="text" name="" id="title" placeholder="Title" />
+        <textarea name="desc" id="desc" placeholder="Description"></textarea>
+        <input type="date" name="" id="duedate" placeholder="Due date" />
+        <select name="priorities" id="priority-dropdown">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <input type="text" name="" id="notes" placeholder="notes" />
+        <div class="checklist-cont">
+          <input
+            type="text"
+            placeholder="Add checklist item"
+            id="checklist-input"
+          />
+          <button class="add-checklist">Add</button>
         </div>
+        <button id="closetodomodal">Submit</button>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
